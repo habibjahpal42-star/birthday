@@ -1,43 +1,122 @@
-    <!DOCTYPE html>
-    <html lang="id">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>FOR YOU</title>
-        <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-        <style>
-            :root {
-                --pink: #ff4d6d;
-                --neon: #00f2ff;
-                --glass: rgba(255, 255, 255, 0.1);
-            }
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FOR YOU</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+      #finalText {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 1.5rem;
+        opacity: 0;
+        z-index: 10001;
+        transition: 1s ease;
+      }
+      #fadeOutScreen {
+        position: fixed;
+        inset: 0;
+        background: black;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 10000;
+        transition: 1.5s ease;
+      }
+      #fadeOutScreen {
+        position: fixed;
+        inset: 0;
+        background: black;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 10000;
+        transition: 1.5s ease;
+      }
+      .music-control {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        cursor: pointer;
+        z-index: 3000;
+        transition: 0.3s ease;
+      }
 
-            * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+      .music-control:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 15px var(--pink);
+      }
+      :root {
+        --pink: #ff4d6d;
+        --neon: #00f2ff;
+        --glass: rgba(255, 255, 255, 0.1);
+      }
 
-            body {
-                font-family: 'Poppins', sans-serif;
-                background: #000;
-                color: white;
-                overflow: hidden;
-                height: 100vh;
-            }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        cursor: none;
+      }
 
-            #cursor {
-                position: fixed; width: 15px; height: 15px; background: var(--pink);
-                border-radius: 50%; pointer-events: none; z-index: 10000;
-                box-shadow: 0 0 15px var(--pink); transition: transform 0.1s;
-            }
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #000;
+        color: white;
+        overflow: hidden;
+        height: 100vh;
+      }
 
-            body::before {
-                content: "";
-                position: fixed; inset: 0; z-index: -1;
-                background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('foto1.png');
-                background-size: cover; background-position: center;
-                filter: blur(15px); transform: scale(1.1);
-            }
+      #cursor {
+        position: fixed;
+        width: 15px;
+        height: 15px;
+        background: var(--pink);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 10000;
+        box-shadow: 0 0 15px var(--pink);
+        transition: transform 0.1s;
+      }
 
-            /* --- INTRO (BACKGROUND PINK) --- */
-             #intro {
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+          url("foto1.png");
+        background-size: cover;
+        background-position: center;
+        filter: blur(15px);
+        transform: scale(1.1);
+      }
+
+      #intro {
         position: fixed;
         inset: 0;
         z-index: 5000;
@@ -48,25 +127,35 @@
         flex-direction: column;
         transition: 0.8s cubic-bezier(0.74, 0.06, 0.4, 0.92);
         overflow: hidden;
-    }
+      }
 
-    /* layer gelap tipis biar gak silau */
-    #intro::before {
+      #intro::before {
         content: "";
         position: absolute;
         inset: 0;
-        background: rgba(0,0,0,0.15);
-    }
+        background: rgba(0, 0, 0, 0.15);
+      }
 
-            @keyframes moveBackground {
-                from { background-position: 0 0, 20px 20px; }
-                to { background-position: 80px 80px, 100px 100px; }
-            }
+      @keyframes moveBackground {
+        from {
+          background-position:
+            0 0,
+            20px 20px;
+        }
+        to {
+          background-position:
+            80px 80px,
+            100px 100px;
+        }
+      }
 
-            #intro.hidden { opacity: 0; transform: scale(1.2); pointer-events: none; }
+      #intro.hidden {
+        opacity: 0;
+        transform: scale(1.2);
+        pointer-events: none;
+      }
 
-            /* --- CSS KUE ULANG TAHUN --- */
-    .cake-container {
+      .cake-container {
         position: relative;
         width: 150px;
         height: 150px;
@@ -77,49 +166,55 @@
         flex-direction: column;
         align-items: center;
         justify-content: flex-end;
-    }
+      }
 
-    .cake-tier {
+      .cake-tier {
         background: #ff8fa3; /* Warna pink kue */
         width: 100%;
         border-radius: 10px 10px 4px 4px;
         position: relative;
-        box-shadow: inset 0 -10px 0 rgba(0,0,0,0.05);
-    }
+        box-shadow: inset 0 -10px 0 rgba(0, 0, 0, 0.05);
+      }
 
-    .tier-bottom {
+      .tier-bottom {
         height: 50px;
         width: 140px;
-    }
+      }
 
-    .tier-top {
+      .tier-top {
         height: 40px;
         width: 100px;
         background: #ffb3c1; /* Warna pink lebih muda */
         margin-bottom: -2px;
-    }
+      }
 
-    /* Hiasan krim/lelehan */
-    .cake-tier::after {
+      .cake-tier::after {
         content: "";
         position: absolute;
-        top: 0; left: 0; width: 100%; height: 15px;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 15px;
         background: #fff; /* Warna krim putih */
         border-radius: 10px 10px 20px 20px;
-    }
+      }
 
-    /* Lilin */
-    .candle {
+      .candle {
         width: 8px;
         height: 30px;
-        background: repeating-linear-gradient(45deg, #fff, #fff 5px, var(--pink) 5px, var(--pink) 10px);
+        background: repeating-linear-gradient(
+          45deg,
+          #fff,
+          #fff 5px,
+          var(--pink) 5px,
+          var(--pink) 10px
+        );
         margin-bottom: -2px;
         position: relative;
         border-radius: 2px;
-    }
+      }
 
-    /* Api Lilin */
-    .flame {
+      .flame {
         position: absolute;
         top: -15px;
         left: 50%;
@@ -128,343 +223,698 @@
         height: 20px;
         background: #ffae00;
         border-radius: 50% 50% 20% 20%;
-        box-shadow: 0 0 10px #ffae00, 0 0 20px #ffae00;
+        box-shadow:
+          0 0 10px #ffae00,
+          0 0 20px #ffae00;
         animation: flicker 0.1s infinite alternate;
-    }
+      }
 
-    @keyframes flicker {
-        0% { transform: translateX(-50%) scale(1); opacity: 0.9; }
-        100% { transform: translateX(-50%) scale(1.1) rotate(2deg); opacity: 1; }
-    }
+      @keyframes flicker {
+        0% {
+          transform: translateX(-50%) scale(1);
+          opacity: 0.9;
+        }
+        100% {
+          transform: translateX(-50%) scale(1.1) rotate(2deg);
+          opacity: 1;
+        }
+      }
 
-    /* Pastikan animasi floating tetap ada */
-    @keyframes floating {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-15px); }
-    }
-    /* Efek saat lilin mati */
-    .candle.extinguished .flame {
+      @keyframes floating {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+      }
+
+      .candle.extinguished .flame {
         display: none;
-    }
+      }
 
-    /* Animasi asap sederhana */
-    .smoke {
+      .smoke {
         position: absolute;
         top: -20px;
         left: 50%;
         transform: translateX(-50%);
         width: 4px;
         height: 10px;
-        background: rgba(255,255,255,0.5);
+        background: rgba(255, 255, 255, 0.5);
         filter: blur(2px);
         border-radius: 50%;
         opacity: 0;
         pointer-events: none;
-    }
+      }
 
-    .extinguished .smoke {
+      .extinguished .smoke {
         animation: smokeRise 2s forwards;
-    }
+      }
 
-    @keyframes smokeRise {
-        0% { opacity: 0.8; transform: translateX(-50%) translateY(0) scale(1); }
-        100% { opacity: 0; transform: translateX(-20%) translateY(-40px) scale(3); }
-    }
-            #intro p {
-                margin-top: 70px;
-                letter-spacing: 3px;
-                color: #fff;
-                font-weight: bold;
-                text-transform: uppercase;
-                animation: textPulse 1.5s infinite alternate;
-                text-shadow: 0 0 10px rgba(0,0,0,0.3);
-            }
+      @keyframes smokeRise {
+        0% {
+          opacity: 0.8;
+          transform: translateX(-50%) translateY(0) scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: translateX(-20%) translateY(-40px) scale(3);
+        }
+      }
+      #intro p {
+        margin-top: 70px;
+        letter-spacing: 3px;
+        color: #fff;
+        font-weight: bold;
+        text-transform: uppercase;
+        animation: textPulse 1.5s infinite alternate;
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      }
 
-            @keyframes textPulse {
-                from { opacity: 0.8; transform: scale(1); }
-                to { opacity: 1; transform: scale(1.05); }
-            }
+      @keyframes textPulse {
+        from {
+          opacity: 0.8;
+          transform: scale(1);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1.05);
+        }
+      }
 
-            /* --- SECTIONS --- */
-            section {
-                position: absolute; inset: 0; display: none;
-                flex-direction: column; align-items: center; justify-content: center;
-                padding: 20px; text-align: center; opacity: 0; transition: 0.8s; z-index: 10;
-            }
-            section.active { display: flex; opacity: 1; }
+      section {
+        position: absolute;
+        inset: 0;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        text-align: center;
+        opacity: 0;
+        transition: 0.8s;
+        z-index: 10;
+      }
+      section.active {
+        display: flex;
+        opacity: 1;
+      }
 
-            .card {
-                background: var(--glass); backdrop-filter: blur(15px);
-                padding: 30px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2);
-                box-shadow: 0 15px 35px rgba(0,0,0,0.5); max-width: 500px; width: 100%;
-            }
+      .card {
+        background: var(--glass);
+        backdrop-filter: blur(15px);
+        padding: 30px;
+        border-radius: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        max-width: 500px;
+        width: 100%;
+      }
 
-            .main-photo { width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 4px solid #fff; box-shadow: 0 0 20px var(--pink); margin-bottom: 20px; }
-            h1.cursive { font-family: 'Great Vibes', cursive; font-size: 4rem; color: var(--pink); }
-            h2.cursive { font-family: 'Dancing Script', cursive; font-size: 2.5rem; margin-bottom: 20px; }
+      .main-photo {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 4px solid #fff;
+        box-shadow: 0 0 20px var(--pink);
+        margin-bottom: 20px;
+      }
+      h1.cursive {
+        font-family: "Great Vibes", cursive;
+        font-size: 4rem;
+        color: var(--pink);
+      }
+      h2.cursive {
+        font-family: "Dancing Script", cursive;
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+      }
 
-            /* --- POLAROID KENANGAN --- */
-            .polaroid-container { position: relative; width: 100%; height: 400px; margin: 30px 0; }
-            .polaroid {
-                position: absolute; width: 190px; background: #fff; padding: 10px 10px 30px 10px;
-                box-shadow: 0 15px 30px rgba(0,0,0,0.4); transition: 0.5s;
-                left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(var(--r)) scale(0.9);
-            }
-            .polaroid:hover { transform: translate(-50%, -60%) rotate(0deg) scale(1.1); z-index: 100 !important; }
-            .polaroid img { width: 100%; height: 170px; object-fit: cover; }
-            .polaroid p { color: #444; font-family: 'Dancing Script', cursive; font-size: 1.2rem; margin-top: 10px; text-align: center; }
+      .polaroid-container {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        margin: 30px 0;
+      }
+      .polaroid {
+        position: absolute;
+        width: 190px;
+        background: #fff;
+        padding: 10px 10px 30px 10px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        transition: 0.5s;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(var(--r)) scale(0.9);
+      }
+      .polaroid:hover {
+        transform: translate(-50%, -60%) rotate(0deg) scale(1.1);
+        z-index: 100 !important;
+      }
+      .polaroid img {
+        width: 100%;
+        height: 170px;
+        object-fit: cover;
+      }
+      .polaroid p {
+        color: #444;
+        font-family: "Dancing Script", cursive;
+        font-size: 1.2rem;
+        margin-top: 10px;
+        text-align: center;
+      }
 
-            .nav-btn { margin-top: 20px; padding: 12px 30px; border: none; border-radius: 50px; background: var(--pink); color: white; font-weight: 600; cursor: pointer; }
+      .nav-btn {
+        margin-top: 20px;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 50px;
+        background: var(--pink);
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+      }
 
-            /* --- TOMBOL SURPRISE RAHASIA --- */
-            .secret-btn {
-                position: fixed; bottom: 20px; right: 20px;
-                width: 40px; height: 40px; background: var(--glass);
-                border: 1px solid var(--pink); border-radius: 50%;
-                display: flex; align-items: center; justify-content: center;
-                font-size: 1.2rem; cursor: pointer; z-index: 2000;
-                animation: pulseSecret 2s infinite;
-                display: none;
-            }
-            @keyframes pulseSecret {
-                0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 109, 0.7); }
-                70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255, 77, 109, 0); }
-                100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 109, 0); }
-            }
+      .secret-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        background: var(--glass);
+        border: 1px solid var(--pink);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        cursor: pointer;
+        z-index: 2000;
+        animation: pulseSecret 2s infinite;
+        display: none;
+      }
+      @keyframes pulseSecret {
+        0% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(255, 77, 109, 0.7);
+        }
+        70% {
+          transform: scale(1.1);
+          box-shadow: 0 0 0 10px rgba(255, 77, 109, 0);
+        }
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(255, 77, 109, 0);
+        }
+      }
 
-            #surpriseModal {
-                position: fixed; inset: 0; background: rgba(0,0,0,0.9);
-                z-index: 9999; display: none; justify-content: center; align-items: center;
-                opacity: 0; transition: 0.5s;
-            }
-            #surpriseModal.show { display: flex; opacity: 1; }
-            .letter {
-                background: #fff; color: #444; padding: 40px; border-radius: 5px;
-                max-width: 400px; width: 90%; transform: rotate(-2deg);
-                box-shadow: 0 20px 50px rgba(0,0,0,0.5); font-family: 'Dancing Script', cursive;
-                font-size: 1.5rem; position: relative;
-            }
-            .close-letter { position: absolute; top: 10px; right: 10px; cursor: pointer; color: #ff4d6d; font-weight: bold; }
+      #surpriseModal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 9999;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: 0.5s;
+      }
+      #surpriseModal.show {
+        display: flex;
+        opacity: 1;
+      }
+      .letter {
+        background: #fff;
+        color: #444;
+        padding: 40px;
+        border-radius: 5px;
+        max-width: 400px;
+        width: 90%;
+        transform: rotate(-2deg);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        font-family: "Dancing Script", cursive;
+        font-size: 1.5rem;
+        position: relative;
+      }
+      .close-letter {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        color: #ff4d6d;
+        font-weight: bold;
+      }
 
-            .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0; }
-            .timer-item { background: rgba(0,0,0,0.3); padding: 10px; border-radius: 15px; }
-            .timer-item span { display: block; font-size: 1.2rem; font-weight: bold; color: var(--neon); }
-            
-            #fireworks { position: fixed; inset: 0; z-index: 6000; pointer-events: none; }
-            .falling-heart { position: fixed; top: -10vh; color: var(--pink); font-size: 1.5rem; pointer-events: none; z-index: 5; animation: fall linear forwards; }
-            @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
-        </style>
-    </head>
-    <body onclick="createHeart(event)">
+      .timer-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin: 20px 0;
+      }
+      .timer-item {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 10px;
+        border-radius: 15px;
+      }
+      .timer-item span {
+        display: block;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--neon);
+      }
 
-        <div id="cursor"></div>
-        <canvas id="fireworks"></canvas>
-        <div id="stars-container"></div>
+      #fireworks {
+        position: fixed;
+        inset: 0;
+        z-index: 6000;
+        pointer-events: none;
+      }
+      .falling-heart {
+        position: fixed;
+        top: -10vh;
+        color: var(--pink);
+        font-size: 1.5rem;
+        pointer-events: none;
+        z-index: 5;
+        animation: fall linear forwards;
+      }
+      @keyframes fall {
+        0% {
+          transform: translateY(-10vh) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(110vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+      /* ========================= */
+      /* RESPONSIVE MOBILE FIX */
+      /* ========================= */
 
-       <div id="intro">
-    <div class="cake-container" id="giftBox" onclick="startApp()">
-        <div class="candle" id="mainCandle"> <div class="flame"></div>
-            <div class="smoke"></div>
+      @media (max-width: 768px) {
+        body {
+          overflow-y: auto;
+          height: auto;
+        }
+
+        section {
+          position: relative;
+          min-height: 100vh;
+          padding: 40px 20px;
+        }
+
+        h1.cursive {
+          font-size: 2.5rem;
+          text-align: center;
+        }
+
+        h2.cursive {
+          font-size: 1.8rem;
+        }
+
+        .main-photo {
+          width: 120px;
+          height: 120px;
+        }
+
+        .card {
+          padding: 20px;
+          border-radius: 20px;
+        }
+
+        /* TIMER jadi 2x2 grid biar lega */
+        .timer-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 15px;
+        }
+
+        .timer-item span {
+          font-size: 1.5rem;
+        }
+
+        /* POLAROID jadi vertical stack */
+        .polaroid-container {
+          height: auto;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 25px;
+          margin: 30px 0;
+        }
+
+        .polaroid {
+          position: relative;
+          left: auto;
+          top: auto;
+          transform: rotate(0deg) scale(1);
+          margin: 0;
+          width: 85%;
+          max-width: 280px;
+        }
+
+        .polaroid:hover {
+          transform: scale(1.05);
+        }
+
+        /* Intro cake lebih kecil */
+        .cake-container {
+          width: 120px;
+          height: 120px;
+        }
+
+        .tier-bottom {
+          width: 110px;
+          height: 45px;
+        }
+
+        .tier-top {
+          width: 80px;
+          height: 35px;
+        }
+
+        /* Music control lebih kecil */
+        .music-control {
+          width: 40px;
+          height: 40px;
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body onclick="createHeart(event)">
+    <div id="cursor"></div>
+    <canvas id="fireworks"></canvas>
+    <div id="stars-container"></div>
+
+    <div id="intro">
+      <div class="cake-container" id="giftBox" onclick="startApp()">
+        <div class="candle" id="mainCandle">
+          <div class="flame"></div>
+          <div class="smoke"></div>
         </div>
         <div class="cake-tier tier-top"></div>
         <div class="cake-tier tier-bottom"></div>
+      </div>
+      <p id="introText">ADA SESUATU UNTUK KAMU</p>
     </div>
-    <p id="introText">ADA SESUATU UNTUK KAMU</p>
-</div>
 
-        <div class="secret-btn" id="secretBtn" onclick="toggleSurprise()">🎁</div>
+    <div class="secret-btn" id="secretBtn" onclick="toggleSurprise()">🎁</div>
 
-        <div id="surpriseModal">
-            <div class="letter">
-                <span class="close-letter" onclick="toggleSurprise()">X</span>
-                <p>HAII sayang... ❤️</p><br>
-                <p>MAAF YAA UNTUK TAHUN NI BELUM ADA SUPRISE SERU DARI HABIB SEPERTI TAHUN TAHUN SEBELUMNYA.</p><br>
-                <p>Happy Birthday yang ke-20! 💍</p>
-            </div>
+    <div id="surpriseModal">
+      <div class="letter">
+        <span class="close-letter" onclick="toggleSurprise()">X</span>
+        <p>HAII sayang... ❤️</p>
+        <br />
+        <p>
+          MAAF YAA UNTUK TAHUN NI BELUM ADA SUPRISE SERU DARI HABIB SEPERTI
+          TAHUN TAHUN SEBELUMNYA.
+        </p>
+        <br />
+        <p>Happy Birthday yang ke-20! 💍</p>
+      </div>
+    </div>
+
+    <audio id="music" loop>
+      <source src="musik.mp3" type="audio/mpeg" />
+    </audio>
+
+    <section id="sec1" class="active">
+      <h1 class="cursive">Happy Birthday Sayang!</h1>
+      <img src="foto2.jpeg" class="main-photo" />
+      <div class="card">
+        <div
+          id="typewriter"
+          style="font-size: 1.1rem; line-height: 1.6; text-align: left"
+        ></div>
+        <button class="nav-btn" onclick="nextSection(2)">Lanjut? ✨</button>
+      </div>
+    </section>
+
+    <section id="sec2">
+      <h2 class="cursive">Waktu Bersamamu ❤️</h2>
+      <div class="card">
+        <div class="timer-grid">
+          <div class="timer-item"><span id="d">0</span><label>Hari</label></div>
+          <div class="timer-item"><span id="h">0</span><label>Jam</label></div>
+          <div class="timer-item">
+            <span id="m">0</span><label>Menit</label>
+          </div>
+          <div class="timer-item">
+            <span id="s">0</span><label>Detik</label>
+          </div>
         </div>
+        <p>"Setiap detik berharga bersamamu."</p>
+        <button class="nav-btn" onclick="nextSection(3)">
+          Lihat Kenangan 📸
+        </button>
+      </div>
+    </section>
 
-        <audio id="music" loop>
-            <source src="musik.mp3" type="audio/mpeg">
-        </audio>
+    <section id="sec3">
+      <h2 class="cursive">Our Memories</h2>
+      <div class="polaroid-container">
+        <div class="polaroid" style="--r: -15deg; margin-left: -100px">
+          <img src="foto1.png" />
+          <p>Momen Terindah ✨</p>
+        </div>
+        <div
+          class="polaroid"
+          style="--r: 10deg; margin-left: 100px; margin-top: 20px"
+        >
+          <img src="foto2.jpeg" />
+          <p>Tawa Bersamamu ❤️</p>
+        </div>
+        <div class="polaroid" style="--r: -2deg; margin-top: -30px">
+          <img src="foto3.jpeg" />
+          <p>Selamanya... 💍</p>
+        </div>
+      </div>
+      <button class="nav-btn" onclick="nextSection(4)">
+        Pesan Terakhir ❤️
+      </button>
+    </section>
 
-        <section id="sec1" class="active">
-            <h1 class="cursive">Happy Birthday Sayang!</h1>
-            <img src="foto2.jpeg" class="main-photo">
-            <div class="card">
-                <div id="typewriter" style="font-size: 1.1rem; line-height: 1.6; text-align: left;"></div>
-                <button class="nav-btn" onclick="nextSection(2)">Lanjut? ✨</button>
-            </div>
-        </section>
+    <section id="sec4">
+      <div class="card">
+        <h1 class="cursive" style="font-size: 3rem">I Love You SAYANG</h1>
+        <p>Dari: HABIB</p>
+        <p style="margin-top: 10px">Untuk: NAJMI HAYATI</p>
+        <button class="nav-btn" onclick="endCinematic()">Ulangi ✨</button>
+      </div>
+    </section>
 
-        <section id="sec2">
-            <h2 class="cursive">Waktu Bersamamu ❤️</h2>
-            <div class="card">
-                <div class="timer-grid">
-                    <div class="timer-item"><span id="d">0</span><label>Hari</label></div>
-                    <div class="timer-item"><span id="h">0</span><label>Jam</label></div>
-                    <div class="timer-item"><span id="m">0</span><label>Menit</label></div>
-                    <div class="timer-item"><span id="s">0</span><label>Detik</label></div>
-                </div>
-                <p>"Setiap detik berharga bersamamu."</p>
-                <button class="nav-btn" onclick="nextSection(3)">Lihat Kenangan 📸</button>
-            </div>
-        </section>
+    <script>
+      const isMobile = window.innerWidth <= 768;
+      const START_DATE = new Date("2023-05-29T00:00:00");
+      const message =
+        "Selamat ulang tahun sayang,\nSemoga di umur ke-20 ini, ayy selalu bahagia, semoga withlist ayy tahun ini terwujud semuanya \nTerima kasih sudah mengajariku banyak hal, terutama arti kesabaran.\n\nAku bersyukur memilikimu. I love you so much! ❤️";
+      let i = 0;
+      let fireworksActive = false;
 
-        <section id="sec3">
-            <h2 class="cursive">Our Memories</h2>
-            <div class="polaroid-container">
-                <div class="polaroid" style="--r: -15deg; margin-left: -100px;">
-                    <img src="foto1.png">
-                    <p>Momen Terindah ✨</p>
-                </div>
-                <div class="polaroid" style="--r: 10deg; margin-left: 100px; margin-top: 20px;">
-                    <img src="foto2.jpeg">
-                    <p>Tawa Bersamamu ❤️</p>
-                </div>
-                <div class="polaroid" style="--r: -2deg; margin-top: -30px;">
-                    <img src="foto3.jpeg">
-                    <p>Selamanya... 💍</p>
-                </div>
-            </div>
-            <button class="nav-btn" onclick="nextSection(4)">Pesan Terakhir ❤️</button>
-        </section>
+      function startApp() {
+        music.play().then(() => fadeInMusic());
+        const giftBox = document.getElementById("giftBox");
+        const introText = document.getElementById("introText");
+        const candle = document.getElementById("mainCandle");
 
-        <section id="sec4">
-            <div class="card">
-                <h1 class="cursive" style="font-size: 3rem;">I Love You SAYANG</h1>
-                <p>Dari: HABIB</p>
-                <p style="margin-top: 10px;">Untuk: NAJMI HAYATI</p>
-                <button class="nav-btn" onclick="location.reload()">Ulangi ✨</button>
-            </div>
-        </section>
+        if (candle) {
+          candle.classList.add("extinguished");
+        }
 
-        <script>
-            const START_DATE = new Date("2023-05-29T00:00:00");
-            const message = "Selamat ulang tahun sayang,\nSemoga di umur ke-20 ini, ayy selalu bahagia, semoga withlist ayy tahun ini terwujud semuanya \nTerima kasih sudah mengajariku banyak hal, terutama arti kesabaran.\n\nAku bersyukur memilikimu. I love you so much! ❤️";
-            let i = 0;
-            let fireworksActive = false;
+        music.play().catch(() => console.log("Musik diputar"));
 
-            function startApp() {
-    const music = document.getElementById('music');
-    const giftBox = document.getElementById('giftBox');
-    const introText = document.getElementById('introText');
-    const candle = document.getElementById('mainCandle'); // Sekarang ID ini sudah ada di atas
-    
-    // 1. Matikan lilin (Efek Tiup)
-    if (candle) {
-        candle.classList.add('extinguished');
-    }
-    
-    // 2. Putar musik
-    music.play().catch(() => console.log("Musik diputar"));
-
-    // 3. Jeda sebentar agar asap terlihat sebelum kue menghilang
-    setTimeout(() => {
-        giftBox.style.transition = '0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55)';
-        giftBox.style.transform = 'scale(0) rotate(-10deg)';
-        giftBox.style.opacity = '0';
-        introText.style.opacity = '0';
-        
-        fireworksActive = true;
-        animateFireworks();
-    }, 700);
-
-    // 4. Masuk ke halaman utama
-    setTimeout(() => {
-        document.getElementById('intro').classList.add('hidden');
         setTimeout(() => {
-            document.getElementById("typewriter").innerHTML = ""; 
+          giftBox.style.transition =
+            "0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55)";
+          giftBox.style.transform = "scale(0) rotate(-10deg)";
+          giftBox.style.opacity = "0";
+          introText.style.opacity = "0";
+
+          fireworksActive = true;
+          animateFireworks();
+        }, 700);
+
+        setTimeout(() => {
+          document.getElementById("intro").classList.add("hidden");
+          setTimeout(() => {
+            document.getElementById("typewriter").innerHTML = "";
             typeWriter();
             setInterval(updateTimer, 1000);
-            setInterval(createFallingHeart, 300);
-        }, 300);
-    }, 2000); 
-}
-            function toggleSurprise() {
-                const modal = document.getElementById('surpriseModal');
-                modal.classList.toggle('show');
-            }
+            setInterval(createFallingHeart, isMobile ? 800 : 300);
+          }, 300);
+        }, 2000);
+      }
+      function toggleSurprise() {
+        const modal = document.getElementById("surpriseModal");
+        modal.classList.toggle("show");
+      }
 
-            function typeWriter() {
-                if (i < message.length) {
-                    document.getElementById("typewriter").innerHTML += message.charAt(i) === "\n" ? "<br>" : message.charAt(i);
-                    i++; setTimeout(typeWriter, 50);
-                }
-            }
+      function typeWriter() {
+        if (i < message.length) {
+          document.getElementById("typewriter").innerHTML +=
+            message.charAt(i) === "\n" ? "<br>" : message.charAt(i);
+          i++;
+          setTimeout(typeWriter, 50);
+        }
+      }
 
-            function nextSection(id) {
-                document.querySelectorAll('section').forEach(s => {
-                    s.classList.remove('active');
-                    setTimeout(() => s.style.display = 'none', 500);
-                });
-                setTimeout(() => {
-                    const next = document.getElementById('sec' + id);
-                    next.style.display = 'flex';
-                    setTimeout(() => {
-                        next.classList.add('active');
-                        if(id === 4) document.getElementById('secretBtn').style.display = 'flex';
-                    }, 50);
-                }, 600);
-            }
+      function nextSection(id) {
+        document.querySelectorAll("section").forEach((s) => {
+          s.classList.remove("active");
+          setTimeout(() => (s.style.display = "none"), 500);
+        });
+        setTimeout(() => {
+          const next = document.getElementById("sec" + id);
+          next.style.display = "flex";
+          setTimeout(() => {
+            next.classList.add("active");
+            if (id === 4)
+              document.getElementById("secretBtn").style.display = "flex";
+          }, 50);
+        }, 600);
+      }
 
-            function updateTimer() {
-                const diff = new Date() - START_DATE;
-                document.getElementById('d').innerText = Math.floor(diff / 86400000);
-                document.getElementById('h').innerText = Math.floor((diff / 3600000) % 24);
-                document.getElementById('m').innerText = Math.floor((diff / 60000) % 60);
-                document.getElementById('s').innerText = Math.floor((diff / 1000) % 60);
-            }
+      function updateTimer() {
+        const diff = new Date() - START_DATE;
+        document.getElementById("d").innerText = Math.floor(diff / 86400000);
+        document.getElementById("h").innerText = Math.floor(
+          (diff / 3600000) % 24,
+        );
+        document.getElementById("m").innerText = Math.floor(
+          (diff / 60000) % 60,
+        );
+        document.getElementById("s").innerText = Math.floor((diff / 1000) % 60);
+      }
 
-            const canvas = document.getElementById('fireworks'); const ctx = canvas.getContext('2d');
-            let particles = []; canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+      const canvas = document.getElementById("fireworks");
+      const ctx = canvas.getContext("2d");
+      let particles = [];
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
 
-            function animateFireworks() {
-                if(!fireworksActive) return;
-                ctx.clearRect(0,0,canvas.width, canvas.height);
-                particles.forEach((p, idx) => {
-                    p.x += p.vx; p.y += p.vy; p.alpha -= 0.01;
-                    if(p.alpha <= 0) particles.splice(idx,1);
-                    ctx.globalAlpha = p.alpha; ctx.fillStyle = p.color;
-                    ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI*2); ctx.fill();
-                });
-                // Frekuensi kembang api dikurangi (dari 0.90 ke 0.98)
-                if(Math.random() > 0.98) createFirework(Math.random()*canvas.width, Math.random()*canvas.height*0.5);
-                requestAnimationFrame(animateFireworks);
-            }
+      function animateFireworks() {
+        if (!fireworksActive) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((p, idx) => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.alpha -= 0.01;
+          if (p.alpha <= 0) particles.splice(idx, 1);
+          ctx.globalAlpha = p.alpha;
+          ctx.fillStyle = p.color;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        // Frekuensi kembang api dikurangi (dari 0.90 ke 0.98)
+        if (Math.random() > (isMobile ? 0.995 : 0.98))
+          createFirework(
+            Math.random() * canvas.width,
+            Math.random() * canvas.height * 0.5,
+          );
+        requestAnimationFrame(animateFireworks);
+      }
 
-            function createFirework(x, y) {
-                const colors = ['#ffffff', '#00f2ff', '#ffd700', '#ff0055'];
-                const color = colors[Math.floor(Math.random()*colors.length)];
-                // Jumlah partikel dikurangi agar tidak brutal (dari 50 ke 20)
-                for(let j=0; j<20; j++) particles.push({x:x, y:y, vx:(Math.random()-0.5)*10, vy:(Math.random()-0.5)*10, alpha:1, color:color});
-            }
+      function createFirework(x, y) {
+        const colors = ["#ffffff", "#00f2ff", "#ffd700", "#ff0055"];
+        const color = colors[Math.floor(Math.random() * colors.length)];
 
-            function createFallingHeart() {
-                const heart = document.createElement('div');
-                heart.className = 'falling-heart';
-                heart.innerHTML = '❤️';
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
-                const duration = Math.random() * 3 + 3; 
-                heart.style.animationDuration = duration + 's';
-                document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), duration * 1000);
-            }
+        const particleCount = isMobile ? 10 : 20;
 
-            document.addEventListener('mousemove', e => { 
-                const cursor = document.getElementById('cursor');
-                cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; 
-            });
+        for (let j = 0; j < particleCount; j++) {
+          particles.push({
+            x: x,
+            y: y,
+            vx: (Math.random() - 0.5) * 10,
+            vy: (Math.random() - 0.5) * 10,
+            alpha: 1,
+            color: color,
+          });
+        }
+      }
+      function createFallingHeart() {
+        const heart = document.createElement("div");
+        heart.className = "falling-heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 15 + "px";
+        const duration = Math.random() * 3 + 3;
+        heart.style.animationDuration = duration + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), duration * 1000);
+      }
 
-            function createHeart(e) {
-                const heart = document.createElement('div'); heart.innerHTML = '❤️';
-                heart.style.position = 'fixed'; heart.style.left = e.clientX + 'px'; heart.style.top = e.clientY + 'px';
-                heart.style.zIndex = '1000'; heart.style.transition = '1s'; heart.style.pointerEvents = 'none';
-                document.body.appendChild(heart);
-                setTimeout(() => { heart.style.transform = 'translateY(-100px) scale(2)'; heart.style.opacity = '0'; }, 50);
-                setTimeout(() => heart.remove(), 1000);
-            }
-        </script>
-    </body>
-    </html>
+      document.addEventListener("mousemove", (e) => {
+        const cursor = document.getElementById("cursor");
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+      });
 
+      function createHeart(e) {
+        const heart = document.createElement("div");
+        heart.innerHTML = "❤️";
+        heart.style.position = "fixed";
+        heart.style.left = e.clientX + "px";
+        heart.style.top = e.clientY + "px";
+        heart.style.zIndex = "1000";
+        heart.style.transition = "1s";
+        heart.style.pointerEvents = "none";
+        document.body.appendChild(heart);
+        setTimeout(() => {
+          heart.style.transform = "translateY(-100px) scale(2)";
+          heart.style.opacity = "0";
+        }, 50);
+        setTimeout(() => heart.remove(), 1000);
+      }
+      const music = document.getElementById("music");
+      const musicControl = document.getElementById("musicControl");
+      let musicPlaying = true;
+
+      // Fade in volume
+      function fadeInMusic() {
+        music.volume = 0;
+        let vol = 0;
+        const interval = setInterval(() => {
+          if (vol < 1) {
+            vol += 0.05;
+            music.volume = vol;
+          } else {
+            clearInterval(interval);
+          }
+        }, 100);
+      }
+
+      function toggleMusic() {
+        if (music.paused) {
+          music.play();
+          musicControl.innerHTML = "🔊";
+        } else {
+          music.pause();
+          musicControl.innerHTML = "🔇";
+        }
+      }
+      function endCinematic() {
+        const fade = document.getElementById("fadeOutScreen");
+        const text = document.getElementById("finalText");
+
+        fade.style.opacity = "1";
+
+        setTimeout(() => {
+          text.style.opacity = "1";
+        }, 800);
+
+        setTimeout(() => {
+          location.reload();
+        }, 3000);
+      }
+    </script>
+    <div id="musicControl" class="music-control" onclick="toggleMusic()">
+      🔊
+    </div>
+    <div id="fadeOutScreen"></div>
+    <div id="finalText">See you in our next chapter...</div>
+  </body>
+</html>
