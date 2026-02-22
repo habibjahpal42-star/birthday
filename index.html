@@ -169,7 +169,7 @@
       }
 
       .cake-tier {
-        background: #ff8fa3; /* Warna pink kue */
+        background: #ff8fa3;
         width: 100%;
         border-radius: 10px 10px 4px 4px;
         position: relative;
@@ -184,7 +184,7 @@
       .tier-top {
         height: 40px;
         width: 100px;
-        background: #ffb3c1; /* Warna pink lebih muda */
+        background: #ffb3c1;
         margin-bottom: -2px;
       }
 
@@ -195,7 +195,7 @@
         left: 0;
         width: 100%;
         height: 15px;
-        background: #fff; /* Warna krim putih */
+        background: #fff;
         border-radius: 10px 10px 20px 20px;
       }
 
@@ -582,6 +582,67 @@
           margin-left: 50px;
         }
       }
+      #videoPopup {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(6px);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 8000;
+      }
+
+      .video-box {
+        position: relative;
+        width: auto;
+        height: 80vh;
+        max-width: 90vw;
+        background: #000;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+        animation: popIn 0.4s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .video-box video {
+        height: 100%;
+        width: auto;
+        object-fit: contain;
+      }
+
+      .close-video {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        color: white;
+        font-size: 1.2rem;
+        cursor: pointer;
+        z-index: 2;
+      }
+
+      @keyframes popIn {
+        from {
+          transform: scale(0.7);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      #videoTransition {
+        position: fixed;
+        inset: 0;
+        background: black;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 9000;
+        transition: opacity 0.6s ease-in-out;
+      }
     </style>
   </head>
   <body onclick="createHeart(event)">
@@ -613,7 +674,7 @@
           TAHUN TAHUN SEBELUMNYA.
         </p>
         <br />
-        <p>Happy Birthday yang ke-20! 💍</p>
+        <p>Happy Birthday Sayang! 💍</p>
       </div>
     </div>
 
@@ -664,12 +725,12 @@
           class="polaroid"
           style="--r: 10deg; margin-left: 60px; margin-top: 20px"
         >
-          <img src="foto2.jpeg" />
-          <p>Tawa Bersamamu ❤️</p>
+          <img src="foto4.jpeg" />
+          <p>Tawa Bersama❤️</p>
         </div>
         <div class="polaroid" style="--r: -2deg; margin-top: -30px">
           <img src="foto3.jpeg" />
-          <p>Selamanya... 💍</p>
+          <p>Manusia Cantik 💍</p>
         </div>
       </div>
       <button class="nav-btn" onclick="nextSection(4)">
@@ -679,9 +740,13 @@
 
     <section id="sec4">
       <div class="card">
-        <h1 class="cursive" style="font-size: 3rem">I Love You SAYANG</h1>
-        <p>Dari: HABIB</p>
-        <p style="margin-top: 10px">Untuk: NAJMI HAYATI</p>
+        <h1 class="cursive" style="font-size: 3rem">I Love You Sayang</h1>
+        <p>
+          Happy Birthday to one of the best people i've ever met, i love and
+          appreciate you more than you will ever know. You are truly special to
+          me.
+        </p>
+
         <button class="nav-btn" onclick="endCinematic()">Ulangi ✨</button>
       </div>
     </section>
@@ -690,12 +755,11 @@
       const isMobile = window.innerWidth <= 768;
       const START_DATE = new Date("2023-05-29T00:00:00");
       const message =
-        "Selamat ulang tahun sayang,\nSemoga di umur ke-20 ini, ayy selalu bahagia, semoga withlist ayy tahun ini terwujud semuanya \nTerima kasih sudah mengajariku banyak hal, terutama arti kesabaran.\n\nAku bersyukur memilikimu. I love you so much! ❤️";
+        "Selamat ulang tahun sayang,\nSemoga di umur ke-20 ini, ayy selalu di berikan kebahagihan dan rezeki yang lancar, semoga withlist ayy tahun ini terwujud semua, ayy jangan pernah menyerah gapai semua impian ayy \nTerima kasih yaa sudah bertahan sejauh ini, kita gapai cita cita kita bersama yaa.\n\nHabib bersyukur memilikimu. I love you so much!";
       let i = 0;
       let fireworksActive = false;
 
       function startApp() {
-        music.play().then(() => fadeInMusic());
         const giftBox = document.getElementById("giftBox");
         const introText = document.getElementById("introText");
         const candle = document.getElementById("mainCandle");
@@ -704,8 +768,6 @@
           candle.classList.add("extinguished");
         }
 
-        music.play().catch(() => console.log("Musik diputar"));
-
         setTimeout(() => {
           giftBox.style.transition =
             "0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55)";
@@ -713,17 +775,33 @@
           giftBox.style.opacity = "0";
           introText.style.opacity = "0";
 
+          const rect = giftBox.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+
+          for (let k = 0; k < 3; k++) {
+            setTimeout(() => {
+              createFirework(centerX, centerY);
+            }, k * 200);
+          }
+
           fireworksActive = true;
           animateFireworks();
         }, 700);
 
         setTimeout(() => {
           document.getElementById("intro").classList.add("hidden");
+
           setTimeout(() => {
-            document.getElementById("typewriter").innerHTML = "";
-            typeWriter();
-            setInterval(updateTimer, 1000);
-            setInterval(createFallingHeart, isMobile ? 800 : 300);
+            const popup = document.getElementById("videoPopup");
+            const video = document.getElementById("introVideo");
+
+            popup.style.display = "flex";
+            video.play();
+
+            video.onended = function () {
+              closeVideo();
+            };
           }, 300);
         }, 2000);
       }
@@ -789,7 +867,7 @@
           ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
           ctx.fill();
         });
-        // Frekuensi kembang api dikurangi (dari 0.90 ke 0.98)
+
         if (Math.random() > (isMobile ? 0.995 : 0.98))
           createFirework(
             Math.random() * canvas.width,
@@ -864,6 +942,20 @@
           if (vol === 1) clearInterval(interval);
         }, 100);
       }
+      function fadeOutMusic(callback) {
+        let vol = music.volume;
+
+        const interval = setInterval(() => {
+          vol = Math.max(vol - 0.05, 0);
+          music.volume = vol;
+
+          if (vol === 0) {
+            clearInterval(interval);
+            music.pause();
+            if (callback) callback();
+          }
+        }, 100);
+      }
 
       function toggleMusic() {
         if (music.paused) {
@@ -874,29 +966,71 @@
           musicControl.innerHTML = "🔇";
         }
       }
+      function closeVideo() {
+        const popup = document.getElementById("videoPopup");
+        const video = document.getElementById("introVideo");
+        const transition = document.getElementById("videoTransition");
+        const sec1 = document.getElementById("sec1");
+
+        video.pause();
+        video.currentTime = 0;
+
+        transition.style.opacity = "1";
+
+        setTimeout(() => {
+          popup.style.display = "none";
+          popup.style.opacity = "1";
+
+          document.querySelectorAll("section").forEach((s) => {
+            s.classList.remove("active");
+            s.style.display = "none";
+          });
+
+          sec1.style.display = "flex";
+
+          music.play().then(() => fadeInMusic());
+
+          document.getElementById("typewriter").innerHTML = "";
+          typeWriter();
+          setInterval(updateTimer, 1000);
+          setInterval(createFallingHeart, isMobile ? 800 : 300);
+
+          setTimeout(() => {
+            sec1.classList.add("active");
+            transition.style.opacity = "0";
+          }, 100);
+        }, 600);
+      }
       function endCinematic() {
         const fade = document.getElementById("fadeOutScreen");
         const text = document.getElementById("finalText");
 
-        fade.style.opacity = "1";
+        fadeOutMusic(() => {
+          fade.style.opacity = "1";
 
-        setTimeout(() => {
-          text.style.opacity = "1";
-        }, 800);
+          setTimeout(() => {
+            text.style.opacity = "1";
+          }, 800);
 
-        setTimeout(() => {
-          location.reload();
-        }, 3000);
-      }
-      if (isMobile) {
-        document.getElementById("cursor").style.display = "none";
-        document.body.style.cursor = "default";
+          setTimeout(() => {
+            location.reload();
+          }, 3500);
+        });
       }
     </script>
     <div id="musicControl" class="music-control" onclick="toggleMusic()">
       🔊
     </div>
     <div id="fadeOutScreen"></div>
+    <div id="videoPopup">
+      <div class="video-box">
+        <span class="close-video" onclick="closeVideo()">✖</span>
+        <video id="introVideo" controls>
+          <source src="vd.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+    <div id="videoTransition"></div>
     <div id="finalText">See you in our next chapter...</div>
   </body>
 </html>
