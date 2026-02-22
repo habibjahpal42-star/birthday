@@ -6,7 +6,7 @@
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>FOR YOU</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap"
@@ -510,9 +510,6 @@
           opacity: 0;
         }
       }
-      /* ========================= */
-      /* RESPONSIVE MOBILE FIX */
-      /* ========================= */
 
       @media (max-width: 768px) {
         body {
@@ -545,7 +542,6 @@
           border-radius: 20px;
         }
 
-        /* TIMER jadi 2x2 grid biar lega */
         .timer-grid {
           grid-template-columns: repeat(2, 1fr);
           gap: 15px;
@@ -555,31 +551,9 @@
           font-size: 1.5rem;
         }
 
-        /* POLAROID jadi vertical stack */
-        .polaroid-container {
-          height: auto;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 25px;
-          margin: 30px 0;
-        }
-
-        .polaroid {
-          position: relative;
-          left: auto;
-          top: auto;
-          transform: rotate(0deg) scale(1);
-          margin: 0;
-          width: 85%;
-          max-width: 280px;
-        }
-
         .polaroid:hover {
           transform: scale(1.05);
         }
-
-        /* Intro cake lebih kecil */
         .cake-container {
           width: 120px;
           height: 120px;
@@ -595,25 +569,10 @@
           height: 35px;
         }
 
-        /* Music control lebih kecil */
         .music-control {
           width: 40px;
           height: 40px;
           font-size: 1rem;
-        }
-      }
-
-      @media (max-width: 768px) {
-        #sec3 .polaroid-container {
-          position: relative;
-          width: 100%;
-          height: 500px; /* ruang supaya bisa overlap */
-          display: block; /* balikin dari flex */
-        }
-
-        #sec3 .polaroid {
-          position: absolute;
-          width: 150px;
         }
       }
     </style>
@@ -887,17 +846,15 @@
       const musicControl = document.getElementById("musicControl");
       let musicPlaying = true;
 
-      // Fade in volume
       function fadeInMusic() {
         music.volume = 0;
         let vol = 0;
+
         const interval = setInterval(() => {
-          if (vol < 1) {
-            vol += 0.05;
-            music.volume = vol;
-          } else {
-            clearInterval(interval);
-          }
+          vol = Math.min(vol + 0.05, 1);
+          music.volume = vol;
+
+          if (vol === 1) clearInterval(interval);
         }, 100);
       }
 
@@ -936,4 +893,3 @@
     <div id="finalText">See you in our next chapter...</div>
   </body>
 </html>
-
