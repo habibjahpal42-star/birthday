@@ -602,6 +602,20 @@
           font-size: 1rem;
         }
       }
+
+      @media (max-width: 768px) {
+        #sec3 .polaroid-container {
+          position: relative;
+          width: 100%;
+          height: 450px; /* ruang supaya bisa overlap */
+          display: block; /* balikin dari flex */
+        }
+
+        #sec3 .polaroid {
+          position: absolute;
+          width: 170px;
+        }
+      }
     </style>
   </head>
   <body onclick="createHeart(event)">
@@ -909,6 +923,10 @@
         setTimeout(() => {
           location.reload();
         }, 3000);
+      }
+      if (isMobile) {
+        document.getElementById("cursor").style.display = "none";
+        document.body.style.cursor = "default";
       }
     </script>
     <div id="musicControl" class="music-control" onclick="toggleMusic()">
